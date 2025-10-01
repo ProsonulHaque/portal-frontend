@@ -29,7 +29,9 @@ export const Logo = () => {
   const [logoUrl, setLogoUrl] = useState<string>(fallbackUrl)
 
   useEffect(() => {
-    BrandingAssetService.getCompanyBrandingLogoUrl().then(setLogoUrl)
+    BrandingAssetService.getCompanyBrandingLogoUrl()
+      .then(setLogoUrl)
+      .catch((error) => { console.error(error) })
   }, [])
 
   return (

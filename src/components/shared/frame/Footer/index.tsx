@@ -29,6 +29,7 @@ import './style.scss'
 import { PAGES } from 'types/Constants'
 import { currentActiveStep } from 'features/appManagement/slice'
 import { useSelector } from 'react-redux'
+import BrandingAssetService from 'services/BrandingAssetsService'
 
 export const Footer = ({ pages }: { pages: string[] }) => {
   const { t } = useTranslation()
@@ -83,6 +84,15 @@ export const Footer = ({ pages }: { pages: string[] }) => {
     window.addEventListener('scroll', toggleVisibility)
   }, [])
 
+  const fallbackFooter = t('content.footer.copyright')
+  const [footer, setFooter] = useState(fallbackFooter)
+
+  useEffect(() => {
+    BrandingAssetService.getCompanyBrandingFooterText()
+      .then(setFooter)
+      .catch((error) => { console.error(error) })
+  }, [])
+
   return (
     <footer style={{ background: getPreferredColor() }}>
       {showScrollToTop && <ScrollToTopButton onButtonClick={scrollToTop} />}
@@ -93,7 +103,7 @@ export const Footer = ({ pages }: { pages: string[] }) => {
       />
       <div className="footer-content">
         <Navigation unstyled items={items} component={NavLink} />
-        <span className="copyright">{`${t('content.footer.copyright')}`}</span>
+        <span className="copyright">{`${footer}`}</span>
       </div>
     </footer>
   )
