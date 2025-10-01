@@ -20,10 +20,21 @@
 
 import { NavLink } from 'react-router-dom'
 import { Image } from '@catena-x/portal-shared-components'
+import BrandingAssetService from 'services/BrandingAssetsService'
+import { useEffect, useState } from 'react'
 import { getAssetBase } from 'services/EnvironmentService'
 
-export const Logo = () => (
-  <NavLink to="/">
-    <Image src={`${getAssetBase()}/images/logos/cx-text.svg`} />
-  </NavLink>
-)
+export const Logo = () => {
+  const fallbackUrl = `${getAssetBase()}/images/logos/cx-text.svg`
+  const [logoUrl, setLogoUrl] = useState<string>(fallbackUrl)
+
+  useEffect(() => {
+    BrandingAssetService.getCompanyBrandingLogoUrl().then(setLogoUrl)
+  }, [])
+
+  return (
+    <NavLink to="/">
+      <Image src={logoUrl} />
+    </NavLink>
+  )
+}
