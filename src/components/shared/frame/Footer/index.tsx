@@ -89,8 +89,10 @@ export const Footer = ({ pages }: { pages: string[] }) => {
 
   useEffect(() => {
     BrandingAssetService.getCompanyBrandingFooterText()
-      .then(setFooter)
-      .catch((error) => { console.error(error) })
+      .then((footer) => { setFooter(footer) })
+      .catch((error) => {
+        console.error(error)
+      })
   }, [])
 
   return (

@@ -30,8 +30,10 @@ export const Logo = () => {
 
   useEffect(() => {
     BrandingAssetService.getCompanyBrandingLogoUrl()
-      .then(setLogoUrl)
-      .catch((error) => { console.error(error) })
+      .then((url) => { setLogoUrl(url) })
+      .catch((error) => {
+        console.error(error)
+      })
   }, [])
 
   return (
