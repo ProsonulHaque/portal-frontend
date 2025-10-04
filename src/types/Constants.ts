@@ -110,6 +110,7 @@ export enum PAGES {
   COMPANY_SUBSCRIPTIONS_DETAIL = 'companySubscriptionsDetail',
   COMPANY_DATA = 'companyData',
   ONBOARDING_SERVICE_PROVIDER_MANAGEMENT = 'onboardingServiceProviderManagement',
+  BRANDING_ASSET_MANAGEMENT = 'brandingAssetManagement',
 }
 
 export enum OVERLAYS {
@@ -238,6 +239,7 @@ export enum ROLES {
   READ_PARTNER_MEMBER = 'read_partner_member',
   APPROVE_NEW_PARTNER = 'approve_new_partner',
   CONFIGURE_PARTNER_REGISTRATION = 'configure_partner_registration',
+  MANAGE_BRANDING_ASSETS = 'manage_branding_assets',
 }
 
 export enum HINTS {

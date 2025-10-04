@@ -103,6 +103,7 @@ import {
 } from 'services/AccessService'
 import OnboardingServiceProvider from 'components/pages/OnboardingServiceProvider/OnboardingServiceProvider'
 import AdminclearinghouseSD from 'components/pages/AdminClearingHouseSD'
+import BrandingAssetManagement from 'components/pages/BrandingAssetManagement'
 
 /**
  * ALL_PAGES
@@ -611,6 +612,13 @@ export const ALL_PAGES: IPage[] = [
       userHasPortalRole(ROLES.CONFIGURE_PARTNER_REGISTRATION) &&
       companyHasRole(COMPANY_ROLES.ONBOARDING_SERVICE_PROVIDER),
     element: <OnboardingServiceProvider />,
+  },
+  {
+    name: PAGES.BRANDING_ASSET_MANAGEMENT,
+    allowTo: () =>
+      userHasPortalRole(ROLES.MANAGE_BRANDING_ASSETS) &&
+      companyHasRole(COMPANY_ROLES.OPERATOR),
+    element: <BrandingAssetManagement />,
   },
 ]
 
