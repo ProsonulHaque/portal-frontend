@@ -1,0 +1,96 @@
+.branding-asset-management {
+  .main-container {
+    margin-top: 72px;
+  }
+
+  .container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .branding-card {
+    height: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .MuiCardContent-root {
+      padding: 24px;
+    }
+  }
+
+  .MuiInputLabel-root {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .MuiTextField-root {
+    .MuiOutlinedInput-root {
+      border-radius: 4px;
+    }
+  }
+
+  .MuiButton-root {
+    text-transform: none;
+    font-weight: 500;
+    border-radius: 4px;
+  }
+
+  .MuiDivider-root {
+    border-color: #e0e0e0;
+  }
+
+  // File upload area styling
+  .dropzone-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #0f71cb;
+      background-color: #f5f5f5;
+    }
+
+    &.drag-active {
+      border-color: #0f71cb;
+      background-color: #e3f2fd;
+    }
+  }
+
+  // Logo preview styling
+  .logo-preview {
+    text-align: center;
+    margin-bottom: 16px;
+
+    img {
+      max-width: 200px;
+      max-height: 100px;
+      object-fit: contain;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 8px;
+      background-color: #fafafa;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .main-container {
+      margin-top: 40px;
+    }
+
+    .branding-card {
+      margin-bottom: 16px;
+    }
+  }
+}

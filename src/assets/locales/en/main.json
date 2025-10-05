@@ -69,6 +69,7 @@
     "mycompany": "My Company",
     "mynotifications": "My Notifications",
     "companyData": "Company Data",
+    "brandingAssetManagement": "Branding Asset Management",
     "onboardingServiceProviderManagement": "Onboarding Service Provider"
   },
   "overlays": {
@@ -2304,6 +2305,33 @@
       "error": {
         "title": "Create {name}",
         "description": "The changes could not be saved. Please try again"
+      }
+    },
+    "brandingAssetManagement": {
+      "headerTitle": "Branding Asset Management",
+      "companySelection": {
+        "title": "Company Selection",
+        "label": "Select Company",
+        "placeholder": "Choose a company to manage branding assets"
+      },
+      "logo": {
+        "title": "Company Branding Logo",
+        "uploadLabel": "Upload Logo",
+        "uploadHint": "Drag and drop your logo file here, or click to select",
+        "supportedFormats": "Supported formats: JPEG, PNG, SVG",
+        "fileSizeError": "File size must be less than 5MB",
+        "fileSizeHint": "Maximum file size: 5MB",
+        "remove": "Remove Logo",
+        "update": "Update Logo",
+        "updating": "Updating..."
+      },
+      "footer": {
+        "title": "Company Branding Footer",
+        "label": "Footer Text",
+        "placeholder": "Enter your company footer text here...",
+        "helperText": "This text will be displayed in the footer of your company pages",
+        "update": "Update Footer",
+        "updating": "Updating..."
       }
     },
     "onboardingServiceProvider": {
