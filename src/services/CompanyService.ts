@@ -59,6 +59,20 @@ const init = (
     })
 }
 
+const getCompanyDdl = async (): Promise<Company[]> => {
+  const url = `${getApiBase()}/api/administration/companyData/companyDdl`
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${UserService.getToken()}`,
+    },
+  })
+
+  if (!response.ok) throw new Error('Failed to fetch company ddl')
+  const data = await response.json()
+  return data.companyDdlData
+}
+
 export const getCompanyDetails = () => CI
 
 export const getCompanyRoles = () => CI.companyRole
@@ -67,6 +81,7 @@ const CompanyService = {
   init,
   getCompanyDetails,
   getCompanyRoles,
+  getCompanyDdl,
 }
 
 export default CompanyService

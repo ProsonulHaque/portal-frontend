@@ -21,21 +21,18 @@ import {
 import BrandingAssetService from 'services/BrandingAssetsService'
 import CompanyService from 'services/CompanyService'
 import './style.scss'
-
-interface Company {
-  companyId: string
-  name: string
-  shortName: string
-}
-
-interface BrandingData {
-  logoUrl?: string
-  footerText: string
-}
+import { type Company } from 'types/CompanyDataTypes'
+import { type BrandingData } from 'types/BrandingAssetManagementTypes'
 
 export default function BrandingAssetManagement() {
   const { t } = useTranslation()
-  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null)
+  const userCompany: Company = {
+    companyId: CompanyService.getCompanyDetails().companyId,
+    companyName: CompanyService.getCompanyDetails().name,
+  }
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(
+    userCompany
+  )
   const [companies, setCompanies] = useState<Company[]>([])
   const [brandingData, setBrandingData] = useState<BrandingData>({
     logoUrl: '',
@@ -45,19 +42,10 @@ export default function BrandingAssetManagement() {
   const [isUpdatingLogo, setIsUpdatingLogo] = useState(false)
   const [isUpdatingFooter, setIsUpdatingFooter] = useState(false)
 
-  // Mock companies data - in real implementation, this would come from an API
   useEffect(() => {
-    // For now, using the current company as the only option
-    const currentCompany = CompanyService.getCompanyDetails()
-    const mockCompanies: Company[] = [
-      {
-        companyId: currentCompany.companyId,
-        name: currentCompany.name,
-        shortName: currentCompany.shortName,
-      },
-    ]
-    setCompanies(mockCompanies)
-    setSelectedCompany(mockCompanies[0])
+    CompanyService.getCompanyDdl()
+      .then((companies) => { setCompanies(companies) })
+      .catch((error) => { console.error(error) })
   }, [])
 
   // Load branding data when company is selected
@@ -187,7 +175,7 @@ export default function BrandingAssetManagement() {
                 placeholder={t(
                   'content.brandingAssetManagement.companySelection.placeholder'
                 )}
-                keyTitle="name"
+                keyTitle="companyName"
                 onChangeItem={handleCompanyChange}
                 defaultValue={selectedCompany}
               />
@@ -302,7 +290,9 @@ export default function BrandingAssetManagement() {
                       rows={4}
                       variant="outlined"
                       value={brandingData.footerText}
-                      onChange={(e) => { handleFooterTextChange(e.target.value) }}
+                      onChange={(e) => {
+                        handleFooterTextChange(e.target.value)
+                      }}
                       placeholder={t(
                         'content.brandingAssetManagement.footer.placeholder'
                       )}
