@@ -44,8 +44,12 @@ export default function BrandingAssetManagement() {
 
   useEffect(() => {
     CompanyService.getCompanyDdl()
-      .then((companies) => { setCompanies(companies) })
-      .catch((error) => { console.error(error) })
+      .then((companies) => {
+        setCompanies(companies)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }, [])
 
   // Load branding data when company is selected
@@ -58,19 +62,21 @@ export default function BrandingAssetManagement() {
   const loadBrandingData = async () => {
     if (!selectedCompany) return
 
-    try {
-      const [logoUrl, footerText] = await Promise.all([
-        BrandingAssetService.getCompanyBrandingLogoUrl().catch(() => ''),
-        BrandingAssetService.getCompanyBrandingFooterText().catch(() => ''),
-      ])
+    const [logoUrl, footerText] = await Promise.all([
+      BrandingAssetService.getCompanyBrandingLogoUrl().catch((error) => {
+        console.error(error)
+        return ''
+      }),
+      BrandingAssetService.getCompanyBrandingFooterText().catch((error) => {
+        console.error(error)
+        return ''
+      }),
+    ])
 
-      setBrandingData({
-        logoUrl,
-        footerText,
-      })
-    } catch (error) {
-      console.error('Error loading branding data:', error)
-    }
+    setBrandingData({
+      logoUrl,
+      footerText,
+    })
   }
 
   const handleCompanyChange = (company: Company) => {
@@ -95,39 +101,30 @@ export default function BrandingAssetManagement() {
     setBrandingData((prev) => ({ ...prev, footerText: value }))
   }
 
-  const handleUpdateLogo = () => {
+  const handleUpdateLogo = async () => {
     if (!selectedCompany || !logoFile) return
 
     try {
       setIsUpdatingLogo(true)
-      // Here you would implement the actual logo update logic
-      console.log('Updating logo:', {
-        companyId: selectedCompany.companyId,
-        logoFile,
-      })
-
-      // TODO: Implement actual API calls to update the logo
+      await BrandingAssetService.updateCompanyBrandingLogo(logoFile)
       alert('Logo updated successfully!')
     } catch (error) {
-      console.error('Error updating logo:', error)
+      console.error(error)
       alert('Error updating logo')
     } finally {
       setIsUpdatingLogo(false)
     }
   }
 
-  const handleUpdateFooter = () => {
+  const handleUpdateFooter = async () => {
     if (!selectedCompany) return
 
     try {
       setIsUpdatingFooter(true)
-      // Here you would implement the actual footer update logic
-      console.log('Updating footer:', {
-        companyId: selectedCompany.companyId,
-        footerText: brandingData.footerText,
-      })
+      await BrandingAssetService.updateCompanyBrandingFooter(
+        brandingData.footerText
+      )
 
-      // TODO: Implement actual API calls to update the footer
       alert('Footer updated successfully!')
     } catch (error) {
       console.error('Error updating footer:', error)

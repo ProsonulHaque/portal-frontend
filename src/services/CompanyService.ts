@@ -20,6 +20,7 @@
 import { type CompanyDetails } from 'features/admin/userApiSlice'
 import { getApiBase } from './EnvironmentService'
 import UserService from './UserService'
+import { type Company } from 'types/CompanyDataTypes'
 
 let CI: CompanyDetails = {
   bpn: '',
