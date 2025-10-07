@@ -2322,6 +2322,8 @@
         "fileSizeError": "File size must be less than 5MB",
         "fileSizeHint": "Maximum file size: 1MB",
         "remove": "Remove Logo",
+        "save": "Save Logo",
+        "saving": "Saving...",
         "update": "Update Logo",
         "updating": "Updating..."
       },
@@ -2331,7 +2333,9 @@
         "placeholder": "Enter your company footer text here...",
         "helperText": "This text will be displayed in the footer of your company pages",
         "update": "Update Footer",
-        "updating": "Updating..."
+        "updating": "Updating...",
+        "save": "Save Footer",
+        "saving": "Saving..."
       }
     },
     "onboardingServiceProvider": {

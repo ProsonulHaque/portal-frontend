@@ -2359,6 +2359,8 @@
         "fileSizeError": "Die Dateigröße muss kleiner als 5 MB sein",
         "fileSizeHint": "Maximale Dateigröße: 1 MB",
         "remove": "Logo entfernen",
+        "save": "Logo speichern",
+        "saving": "Wird gespeichert...",
         "update": "Logo aktualisieren",
         "updating": "Wird aktualisiert..."
       },
@@ -2367,6 +2369,8 @@
         "label": "Fußzeilentext",
         "placeholder": "Geben Sie hier Ihren Unternehmens-Fußzeilentext ein...",
         "helperText": "Dieser Text wird in der Fußzeile Ihrer Unternehmensseiten angezeigt",
+        "save": "Fußzeile speichern",
+        "saving": "Wird gespeichert...",
         "update": "Fußzeile aktualisieren",
         "updating": "Wird aktualisiert..."
       }

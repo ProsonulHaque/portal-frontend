@@ -2,7 +2,10 @@ import { type DropzoneFile } from 'components/shared/basic/Dropzone'
 import CompanyService from './CompanyService'
 import { getApiBase } from './EnvironmentService'
 import UserService from './UserService'
-import { type BrandingFooterData } from 'types/BrandingAssetManagementTypes'
+import {
+  type BrandingLogoData,
+  type BrandingFooterData,
+} from 'types/BrandingAssetManagementTypes'
 
 const getCompanyBrandingLogoUrl = async (): Promise<string> => {
   const url = `${getApiBase()}/api/administration/branding/assets/logo?companyId=${CompanyService.getCompanyDetails().companyId}`
@@ -18,6 +21,24 @@ const getCompanyBrandingFooterText = async (): Promise<string> => {
   if (!response.ok) throw new Error('Failed to fetch footer')
   const data = await response.json()
   return data.companyBrandingFooter
+}
+
+const saveCompanyBrandingLogo = async (logoData: BrandingLogoData) => {
+  const url = `${getApiBase()}/api/administration/branding/assets/logo`
+
+  const formData = new FormData()
+  formData.append('CompanyId', logoData.CompanyId)
+  formData.append('CompanyLogoFile', logoData.CompanyLogoFile)
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${UserService.getToken()}`,
+    },
+    body: formData,
+  })
+
+  if (!response.ok) throw new Error('Failed to save logo')
 }
 
 const updateCompanyBrandingLogo = async (logo: DropzoneFile) => {
@@ -65,6 +86,7 @@ const deleteCompanyBrandingLogo = async (companyId: string) => {
 const BrandingAssetService = {
   getCompanyBrandingLogoUrl,
   getCompanyBrandingFooterText,
+  saveCompanyBrandingLogo,
   updateCompanyBrandingLogo,
   updateCompanyBrandingFooter,
   deleteCompanyBrandingLogo,

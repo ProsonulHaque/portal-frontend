@@ -22,7 +22,10 @@ import BrandingAssetService from 'services/BrandingAssetsService'
 import CompanyService from 'services/CompanyService'
 import './style.scss'
 import { type Company } from 'types/CompanyDataTypes'
-import { type BrandingData } from 'types/BrandingAssetManagementTypes'
+import {
+  type BrandingLogoData,
+  type BrandingData,
+} from 'types/BrandingAssetManagementTypes'
 
 export default function BrandingAssetManagement() {
   const { t } = useTranslation()
@@ -39,6 +42,8 @@ export default function BrandingAssetManagement() {
     footerText: '',
   })
   const [logoFile, setLogoFile] = useState<DropzoneFile | null>(null)
+  const [isSavingLogo, setIsSavingLogo] = useState(false)
+  const [selectedLogo, setSelectedLogo] = useState(false)
   const [isUpdatingLogo, setIsUpdatingLogo] = useState(false)
   const [isUpdatingFooter, setIsUpdatingFooter] = useState(false)
 
@@ -86,9 +91,34 @@ export default function BrandingAssetManagement() {
   const handleLogoUpload = (files: DropzoneFile[]) => {
     if (files.length > 0) {
       setLogoFile(files[0])
+      setSelectedLogo(true)
+
       // Create preview URL
       const previewUrl = URL.createObjectURL(files[0])
       setBrandingData((prev) => ({ ...prev, logoUrl: previewUrl }))
+    }
+  }
+
+  const handleLogoSave = async () => {
+    if (!selectedCompany || !logoFile) return
+
+    try {
+      setIsSavingLogo(true)
+
+      const logoData: BrandingLogoData = {
+        CompanyId: selectedCompany.companyId,
+        CompanyLogoFile: logoFile,
+      }
+      await BrandingAssetService.saveCompanyBrandingLogo(logoData)
+
+      setSelectedLogo(false)
+      setLogoFile(null)
+      alert('Logo saved successfully')
+    } catch (error) {
+      console.error(error)
+      alert('Error saving logo!')
+    } finally {
+      setIsSavingLogo(false)
     }
   }
 
@@ -109,12 +139,13 @@ export default function BrandingAssetManagement() {
     setBrandingData((prev) => ({ ...prev, footerText: value }))
   }
 
-  const handleUpdateLogo = async () => {
+  const handleLogoUpdate = async () => {
     if (!selectedCompany || !logoFile) return
 
     try {
       setIsUpdatingLogo(true)
       await BrandingAssetService.updateCompanyBrandingLogo(logoFile)
+      setLogoFile(null)
       alert('Logo updated successfully!')
     } catch (error) {
       console.error(error)
@@ -243,7 +274,7 @@ export default function BrandingAssetManagement() {
                         'image/png': ['.png'],
                         'image/svg+xml': ['.svg'],
                       }}
-                      maxFileSize={5 * 1024 * 1024} // 5MB
+                      maxFileSize={1 * 1024 * 1024} // 1MB
                       maxFilesToUpload={1}
                       enableDeleteOverlay={false}
                       DropArea={renderDropArea}
@@ -259,19 +290,37 @@ export default function BrandingAssetManagement() {
                       {t('content.brandingAssetManagement.logo.fileSizeHint')}
                     </Typography>
 
+                    {/* Save Logo Button */}
+                    {(!brandingData.logoUrl || selectedLogo) && (
+                      <Box sx={{ mt: 2, textAlign: 'center' }}>
+                        <Button
+                          variant="contained"
+                          onClick={handleLogoSave}
+                          disabled={isSavingLogo || !logoFile}
+                          size="small"
+                        >
+                          {isSavingLogo
+                            ? t('content.brandingAssetManagement.logo.saving')
+                            : t('content.brandingAssetManagement.logo.save')}
+                        </Button>
+                      </Box>
+                    )}
+
                     {/* Update Logo Button */}
-                    <Box sx={{ mt: 2, textAlign: 'center' }}>
-                      <Button
-                        variant="contained"
-                        onClick={handleUpdateLogo}
-                        disabled={isUpdatingLogo || !logoFile}
-                        size="small"
-                      >
-                        {isUpdatingLogo
-                          ? t('content.brandingAssetManagement.logo.updating')
-                          : t('content.brandingAssetManagement.logo.update')}
-                      </Button>
-                    </Box>
+                    {brandingData.logoUrl && !selectedLogo && (
+                      <Box sx={{ mt: 2, textAlign: 'center' }}>
+                        <Button
+                          variant="contained"
+                          onClick={handleLogoUpdate}
+                          disabled={isUpdatingLogo || !logoFile}
+                          size="small"
+                        >
+                          {isUpdatingLogo
+                            ? t('content.brandingAssetManagement.logo.updating')
+                            : t('content.brandingAssetManagement.logo.update')}
+                        </Button>
+                      </Box>
+                    )}
                   </Box>
                 </CardContent>
               </Card>
