@@ -2343,6 +2343,33 @@
       },
       "ospIdentityProvider": "OSP-Identitätsanbieter (IDPs)",
       "search": "Geben Sie einen Namen oder Alias ​​ein, um zu suchen"
+    },
+    "brandingAssetManagement": {
+      "headerTitle": "Markenressourcen-Verwaltung",
+      "companySelection": {
+        "title": "Unternehmensauswahl",
+        "label": "Unternehmen auswählen",
+        "placeholder": "Wählen Sie ein Unternehmen, um die Markenressourcen zu verwalten"
+      },
+      "logo": {
+        "title": "Unternehmens-Branding-Logo",
+        "uploadLabel": "Logo hochladen",
+        "uploadHint": "Ziehen Sie Ihre Logo-Datei hierher oder klicken Sie, um sie auszuwählen",
+        "supportedFormats": "Unterstützte Formate: JPEG, PNG, SVG",
+        "fileSizeError": "Die Dateigröße muss kleiner als 5 MB sein",
+        "fileSizeHint": "Maximale Dateigröße: 1 MB",
+        "remove": "Logo entfernen",
+        "update": "Logo aktualisieren",
+        "updating": "Wird aktualisiert..."
+      },
+      "footer": {
+        "title": "Unternehmens-Branding-Fußzeile",
+        "label": "Fußzeilentext",
+        "placeholder": "Geben Sie hier Ihren Unternehmens-Fußzeilentext ein...",
+        "helperText": "Dieser Text wird in der Fußzeile Ihrer Unternehmensseiten angezeigt",
+        "update": "Fußzeile aktualisieren",
+        "updating": "Wird aktualisiert..."
+      }
     }
   },
   "navigation": {
