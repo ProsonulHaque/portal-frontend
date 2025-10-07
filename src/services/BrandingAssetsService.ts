@@ -50,11 +50,24 @@ const updateCompanyBrandingFooter = async (footer: string) => {
   if (!response.ok) throw new Error('Failed to update footer')
 }
 
+const deleteCompanyBrandingLogo = async (companyId: string) => {
+  const url = `${getApiBase()}/api/administration/branding/assets/logo/company/${companyId}`
+  const response = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      authorization: `Bearer ${UserService.getToken()}`,
+    },
+  })
+
+  if (!response.ok) throw new Error('Failed to delete logo')
+}
+
 const BrandingAssetService = {
   getCompanyBrandingLogoUrl,
   getCompanyBrandingFooterText,
   updateCompanyBrandingLogo,
   updateCompanyBrandingFooter,
+  deleteCompanyBrandingLogo,
 }
 
 export default BrandingAssetService

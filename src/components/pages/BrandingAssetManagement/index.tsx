@@ -93,8 +93,16 @@ export default function BrandingAssetManagement() {
   }
 
   const handleLogoRemove = () => {
-    setLogoFile(null)
-    setBrandingData((prev) => ({ ...prev, logoUrl: '' }))
+    if (!selectedCompany) return
+
+    BrandingAssetService.deleteCompanyBrandingLogo(selectedCompany.companyId)
+      .then(() => {
+        setLogoFile(null)
+        setBrandingData((prev) => ({ ...prev, logoUrl: '' }))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   const handleFooterTextChange = (value: string) => {
