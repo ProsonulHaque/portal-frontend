@@ -2320,7 +2320,7 @@
         "uploadHint": "Drag and drop your logo file here, or click to select",
         "supportedFormats": "Supported formats: JPEG, PNG, SVG",
         "fileSizeError": "File size must be less than 5MB",
-        "fileSizeHint": "Maximum file size: 5MB",
+        "fileSizeHint": "Maximum file size: 1MB",
         "remove": "Remove Logo",
         "update": "Update Logo",
         "updating": "Updating..."
